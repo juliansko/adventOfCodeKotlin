@@ -6,7 +6,7 @@ import kotlin.io.path.readText
 /**
  * Reads lines from the given input txt file.
  */
-fun readInput(name: String) = Path("src/$name.txt").readText().trim().lines()
+fun readInput(name: String) = Path("input/$name.txt").readText().trim().lines()
 
 /**
  * Converts string to md5 hash.
@@ -19,3 +19,51 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
  * The cleaner shorthand for printing output.
  */
 fun Any?.println() = println(this)
+
+public operator fun Pair<Int, Int>.plus(secondPair: Pair<Int, Int>): Pair<Int, Int> {
+    return Pair(this.first + secondPair.first, this.second + secondPair.second)
+}
+
+public operator fun Pair<Int, Int>.minus(secondPair: Pair<Int, Int>): Pair<Int, Int> {
+    return Pair(this.first - secondPair.first, this.second - secondPair.second)
+}
+
+public operator fun Pair<Int, Int>.times(factor: Int): Pair<Int, Int> {
+    return Pair(this.first * factor, this.second * factor)
+}
+
+public operator fun List<CharArray>.get(coords: Pair<Int, Int>): Char {
+    return this[coords.first][coords.second]
+}
+
+public operator fun List<CharArray>.set(coords: Pair<Int, Int>, char: Char) {
+    this[coords.first][coords.second] = char
+}
+
+public operator fun List<CharArray>.get(coords: Pair<Pair<Int, Int>, Pair<Int, Int>>): Pair<Char, Char> {
+    return Pair(this[coords.first], this[coords.second])
+}
+
+public operator fun List<CharArray>.set(coords: Pair<Pair<Int, Int>, Pair<Int, Int>>, chars: Pair<Char, Char>) {
+    this[coords.first] = chars.first
+    this[coords.second] = chars.second
+}
+
+fun Pair<Int, Int>.flip(): Pair<Int, Int> {
+    return Pair(this.second, this.first)
+}
+
+fun Pair<Int, Int>.flipNegative(): Pair<Int, Int> {
+    return Pair(-this.second, -this.first)
+}
+
+fun mapDirections(direction: Pair<Int, Int>): Char {
+    when (direction) {
+        Pair(1, 0) -> return 'v'
+        Pair(-1, 0) -> return '^'
+        Pair(0, -1) -> return '<'
+        Pair(0, 1) -> return '>'
+    }
+    return '0'
+}
+
