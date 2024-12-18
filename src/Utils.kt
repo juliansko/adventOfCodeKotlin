@@ -36,8 +36,20 @@ public operator fun List<CharArray>.get(coords: Pair<Int, Int>): Char {
     return this[coords.first][coords.second]
 }
 
+public operator fun List<IntArray>.get(coords: Pair<Int, Int>): Int {
+    return this[coords.first][coords.second]
+}
+
 public operator fun List<CharArray>.set(coords: Pair<Int, Int>, char: Char) {
     this[coords.first][coords.second] = char
+}
+
+public operator fun List<List<String>>.get(coords: Pair<Int, Int>): String {
+    return this[coords.first][coords.second]
+}
+
+public operator fun List<MutableList<String>>.set(coords: Pair<Int, Int>, str: String) {
+    this[coords.first][coords.second] = str
 }
 
 public operator fun List<CharArray>.get(coords: Pair<Pair<Int, Int>, Pair<Int, Int>>): Pair<Char, Char> {
@@ -66,4 +78,17 @@ fun mapDirections(direction: Pair<Int, Int>): Char {
     }
     return '0'
 }
+
+fun HashMap<Long, Long>.add(key: Long, amount: Long) {
+    if (this.containsKey(key)) this[key] = this[key]!! + amount
+    else this[key] = amount
+}
+
+
+fun List<IntArray>.check(coords: Pair<Int, Int>): Boolean {
+    return coords.first in this.indices && coords.second in this[coords.first].indices
+}
+
+
+
 
